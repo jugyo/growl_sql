@@ -7,10 +7,10 @@ begin
       GROWL = Growl.new "localhost", "growl_sql", ["growl_sql"]
 
       def log_info_with_feature(sql, name, runtime)
+        log_info_without_feature(sql, name, runtime)
         if /(insert|update|delete)/i =~ sql
           GROWL.notify "growl_sql", $1, sql
         end
-        log_info_without_feature(sql, name, runtime)
       end
 
       alias_method_chain :log_info, :feature
